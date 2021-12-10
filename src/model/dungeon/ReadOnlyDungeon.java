@@ -1,5 +1,6 @@
 package model.dungeon;
 
+
 import model.location.Location;
 import model.player.Player;
 

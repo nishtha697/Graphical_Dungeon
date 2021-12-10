@@ -1,13 +1,16 @@
 package control.gui;
 
-import java.awt.event.ActionListener;
 import java.awt.GridLayout;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 /**
@@ -19,17 +22,16 @@ public class PreLaunchViewImpl extends JFrame implements PreLaunchView {
   private final JTextField rows;
   private final JTextField cols;
   private final JTextField interconnectivity;
-  private final JTextField isWrapping;
+  private final JCheckBox isWrapping;
   private final JTextField nameOfPlayer;
   private final JTextField numberOfMonsters;
   private final JTextField percentageOfTreasuresAndArrows;
   private final JButton start;
-  private final boolean inTesting;
 
   /**
    * Constructs the pre-launch view.
    */
-  public PreLaunchViewImpl(boolean inTesting) {
+  public PreLaunchViewImpl() {
     super("Dungeon Constraints");
 
     JPanel container = new JPanel();
@@ -55,8 +57,8 @@ public class PreLaunchViewImpl extends JFrame implements PreLaunchView {
     inputPanel.add(interconnectivity);
 
     JLabel isWrappingL = new JLabel();
-    isWrappingL.setText("Enter 'yes' if dungeon is wrapping: ");
-    isWrapping = new JTextField(15);
+    isWrappingL.setText("Check if dungeon is wrapping: ");
+    isWrapping = new JCheckBox("Is Wrapping?");
     inputPanel.add(isWrappingL);
     inputPanel.add(isWrapping);
 
@@ -84,10 +86,8 @@ public class PreLaunchViewImpl extends JFrame implements PreLaunchView {
 
     add(container);
 
-    this.inTesting = inTesting;
-
     this.setSize(600, 250);
-    this.setLocation(300,200);
+    this.setLocation(300, 200);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }
 
@@ -98,30 +98,53 @@ public class PreLaunchViewImpl extends JFrame implements PreLaunchView {
 
   @Override
   public int getRows() {
-    String command = this.rows.getText();
-    this.rows.setText("");
-    return Integer.parseInt(command);
+    int row = 0;
+    try {
+      String command = this.rows.getText();
+      this.rows.setText("");
+      row = Integer.parseInt(command);
+    } catch (NumberFormatException e) {
+      JOptionPane.showMessageDialog(this, "Invalid number for rows");
+      e.printStackTrace();
+    }
+    return row;
   }
 
   @Override
   public int getCols() {
-    String command = this.cols.getText();
-    this.cols.setText("");
-    return Integer.parseInt(command);
+    int col = 0;
+    try {
+      String command = this.cols.getText();
+      this.cols.setText("");
+      col = Integer.parseInt(command);
+
+    } catch (NumberFormatException e) {
+      JOptionPane.showMessageDialog(this, "Invalid number for columns");
+      e.printStackTrace();
+    }
+    return col;
   }
 
   @Override
   public int getInterconnectivity() {
-    String command = this.interconnectivity.getText();
-    this.interconnectivity.setText("");
-    return Integer.parseInt(command);
+    int inter = 0;
+    try {
+      String command = this.interconnectivity.getText();
+      this.interconnectivity.setText("");
+      inter = Integer.parseInt(command);
+    } catch (NumberFormatException e) {
+      JOptionPane.showMessageDialog(this,
+              "Invalid number for interconnectivity");
+      e.printStackTrace();
+    }
+    return inter;
   }
 
   @Override
   public boolean getIsWrapping() {
-    String command = this.isWrapping.getText();
-    this.isWrapping.setText("");
-    return command.equalsIgnoreCase("YES");
+    boolean selected = this.isWrapping.isSelected();
+    this.isWrapping.setSelected(false);
+    return selected;
   }
 
   @Override
@@ -133,16 +156,31 @@ public class PreLaunchViewImpl extends JFrame implements PreLaunchView {
 
   @Override
   public int getNumberOfMonsters() {
-    String command = this.numberOfMonsters.getText();
-    this.numberOfMonsters.setText("");
-    return Integer.parseInt(command);
+    int monster = 0;
+    try {
+      String command = this.numberOfMonsters.getText();
+      this.numberOfMonsters.setText("");
+      monster = Integer.parseInt(command);
+    } catch (NumberFormatException e) {
+      JOptionPane.showMessageDialog(this, "Invalid number for monsters");
+      e.printStackTrace();
+    }
+    return monster;
   }
 
   @Override
   public double getPercentageOfTreasuresAndArrowsL() {
-    String command = this.percentageOfTreasuresAndArrows.getText();
-    this.percentageOfTreasuresAndArrows.setText("");
-    return Double.parseDouble(command);
+    double percentage = 0.0;
+    try {
+      String command = this.percentageOfTreasuresAndArrows.getText();
+      this.percentageOfTreasuresAndArrows.setText("");
+      percentage = Double.parseDouble(command);
+    } catch (NumberFormatException e) {
+      JOptionPane.showMessageDialog(this,
+              "Invalid percentage of treasures and arrows");
+      e.printStackTrace();
+    }
+    return percentage;
   }
 
   @Override

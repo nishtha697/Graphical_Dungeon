@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import control.gui.DungeonControllerImpl;
 import control.gui.PreLaunchView;
 import control.gui.PreLaunchViewImpl;
-import control.textBased.DungeonConsoleController;
+import control.textbased.DungeonConsoleController;
 import model.dungeon.Dungeon;
 import model.dungeon.DungeonImpl;
 import model.random.RandomFactory;
@@ -41,7 +41,8 @@ public class Driver {
 
       double percentageOfTreasuresAndArrows;
       percentageOfTreasuresAndArrows = Integer.parseInt(args[4]);
-      System.out.println("Percentage of caves to have treasures: " + percentageOfTreasuresAndArrows);
+      System.out.println("Percentage of caves to have treasures: "
+              + percentageOfTreasuresAndArrows);
       System.out.println("Percentage of locations to have arrows:: "
               + percentageOfTreasuresAndArrows);
 
@@ -62,7 +63,7 @@ public class Driver {
       Appendable output = System.out;
       new DungeonConsoleController(input, output).playGame(dungeon);
     } else {
-      PreLaunchView preLaunchView = new PreLaunchViewImpl(false);
+      PreLaunchView preLaunchView = new PreLaunchViewImpl();
       new DungeonControllerImpl(preLaunchView);
     }
   }

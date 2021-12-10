@@ -1,4 +1,4 @@
-package control.textBased;
+package control.textbased;
 
 import model.dungeon.Dungeon;
 

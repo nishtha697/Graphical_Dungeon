@@ -1,4 +1,4 @@
-package control.textBased;
+package control.textbased;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import model.dungeon.Dungeon;
 import model.location.Treasure;
 import model.player.Player;
 
-import static control.textBased.GetStringsHelper.getString;
+import static control.textbased.GetStringsHelper.getString;
 
 /**
  * The controller implements the {@link Controller} controls the execution of the program by taking

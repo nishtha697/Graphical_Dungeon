@@ -20,21 +20,43 @@ import model.random.RandomGenerator;
  */
 public class DungeonControllerImpl implements DungeonGUIController, ActionListener {
 
+  private final PreLaunchView prelaunchView;
   private Dungeon model;
   private Dungeon freshModel;
   private DungeonView view;
-  private final PreLaunchView prelaunchView;
   private int rows;
   private int cols;
 
   /**
    * Constructs Dungeon controller.
-   * @throws IllegalArgumentException if {@code model} or {@code view} is {@code null}.
+   *
+   * @throws IllegalArgumentException if {@code prelaunchView} is {@code null}.
    */
   public DungeonControllerImpl(PreLaunchView prelaunchView) {
+    if (prelaunchView == null) {
+      throw new IllegalArgumentException("Cannot be null");
+    }
     this.prelaunchView = prelaunchView;
     this.prelaunchView.setCommandButtonListener(this);
     this.prelaunchView.makeVisible();
+  }
+
+  /**
+   * Constructs Dungeon controller.
+   *
+   * @throws IllegalArgumentException if {@code model} or {@code view} or {@code prelaunchView} is
+   *                                  {@code null}.
+   */
+  public DungeonControllerImpl(Dungeon model, DungeonView view, PreLaunchView prelaunchView,
+                               int rows, int cols) {
+    if (prelaunchView == null || model == null || view == null) {
+      throw new IllegalArgumentException("Cannot be null");
+    }
+    this.model = model;
+    this.view = view;
+    this.prelaunchView = prelaunchView;
+    this.rows = rows;
+    this.cols = cols;
   }
 
   @Override
@@ -52,10 +74,11 @@ public class DungeonControllerImpl implements DungeonGUIController, ActionListen
       Direction direction = null;
       for (Map.Entry locationWithDirection : model.getPlayerLocation().getNeighborLocations()
               .entrySet()) {
-          if (((Location)locationWithDirection.getValue()).getCoordinates().getX() == row
-                  && ((Location)locationWithDirection.getValue()).getCoordinates().getY() == col) {
-            direction = (Direction) locationWithDirection.getKey();
-          }
+        if (((Location) locationWithDirection.getValue()).getCoordinates().getX() == row
+                && ((Location) locationWithDirection.getValue()).getCoordinates().getY() == col) {
+          direction = (Direction) locationWithDirection.getKey();
+        }
+
       }
       result = model.movePlayer(direction);
       view.setLocationAsVisited(row, col);
@@ -85,12 +108,12 @@ public class DungeonControllerImpl implements DungeonGUIController, ActionListen
   @Override
   public boolean handleKeyMove(Direction direction) {
     boolean result = false;
-    try{
-    result = model.movePlayer(direction);
-    view.refresh();
-  } catch (IllegalStateException | IllegalArgumentException ignoredException) {
-    //exception ignored
-  }
+    try {
+      result = model.movePlayer(direction);
+      view.refresh();
+    } catch (IllegalStateException | IllegalArgumentException ignoredException) {
+      //exception ignored
+    }
     return result;
   }
 
@@ -135,11 +158,11 @@ public class DungeonControllerImpl implements DungeonGUIController, ActionListen
   public boolean handleShootArrow(Direction direction, int distance) {
     boolean result = false;
     try {
-    result = model.shootArrow(distance, direction);
-    view.refresh();
-  } catch (IllegalStateException | IllegalArgumentException ignoredException) {
-    //exception ignored
-  }
+      result = model.shootArrow(distance, direction);
+      view.refresh();
+    } catch (IllegalStateException | IllegalArgumentException ignoredException) {
+      //exception ignored
+    }
     return result;
   }
 
@@ -155,15 +178,14 @@ public class DungeonControllerImpl implements DungeonGUIController, ActionListen
     RandomFactory randomFactory = new RandomFactory();
     RandomGenerator rand = randomFactory.getRandomGenerator(true);
     try {
-     model = new DungeonImpl(rows, cols, interconnectivity, isWrapping,
-             percentageOfTreasuresAndArrowsL, player, numberOfMonsters, rand);
-     freshModel = new DungeonImpl((DungeonImpl) model);
-     this.view = new DungeonViewImpl(model, this, rows, cols);
-     this.rows = rows;
-     this.cols = cols;
-     playGame();
-    }
-    catch (Exception ex) {
+      model = new DungeonImpl(rows, cols, interconnectivity, isWrapping,
+              percentageOfTreasuresAndArrowsL, player, numberOfMonsters, rand);
+      freshModel = new DungeonImpl((DungeonImpl) model);
+      this.view = new DungeonViewImpl(model, this, rows, cols);
+      this.rows = rows;
+      this.cols = cols;
+      playGame();
+    } catch (Exception ex) {
       System.out.println(ex.getMessage());
     }
   }

@@ -2,6 +2,9 @@ package model.location;
 
 import java.util.Comparator;
 
+/**
+ * Direction comparator to order them in the right order for image display.
+ */
 public class DirectionComparator implements Comparator<Direction> {
 
   @Override

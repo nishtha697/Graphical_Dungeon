@@ -2,11 +2,14 @@ import java.awt.event.ActionListener;
 
 import control.gui.PreLaunchView;
 
-public class MockPreLaunchView implements PreLaunchView {
+/**
+ * Mock pre-launch view for testing th GUI controller.
+ */
+class MockPreLaunchView implements PreLaunchView {
 
   @Override
   public void setCommandButtonListener(ActionListener actionEvent) {
-
+    //do nothing
   }
 
   @Override
@@ -46,12 +49,11 @@ public class MockPreLaunchView implements PreLaunchView {
 
   @Override
   public void makeVisible() {
-
+    //do nothing
   }
 
   @Override
   public void close() {
-
+    //do nothing
   }
-
 }

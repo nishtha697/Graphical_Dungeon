@@ -1,6 +1,11 @@
 package control.gui;
 
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Component;
+import java.awt.Image;
+import java.awt.FlowLayout;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -11,8 +16,17 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-
+import javax.swing.JPanel;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.dungeon.ReadOnlyDungeon;
 import model.location.Direction;
 
@@ -24,14 +38,14 @@ public class DungeonViewImpl extends JFrame implements DungeonView {
 
   private final DungeonPanel board;
   private final DescriptionPanel description;
-  private boolean shootMode;
-  private Direction shootDirection;
   private final ShootDialog shootDialog;
   private final ReadOnlyDungeon model;
-  private final static String PATH = "res/dungeon-images/";
+  private boolean shootMode;
+  private Direction shootDirection;
 
   /**
    * Constructs Dungeon view.
+   *
    * @param model the model.
    * @throws IllegalArgumentException if {@code model} is {@code null}.
    */
@@ -43,24 +57,24 @@ public class DungeonViewImpl extends JFrame implements DungeonView {
     }
     this.model = model;
     this.getContentPane().setBackground(Color.BLACK);
-    this.setSize(64*10, (64*rows + 140));
+    this.setSize(64 * 10, (64 * rows + 140));
     this.setLocation(100, 100);
     this.board = new DungeonPanel(model, rows, cols);
 
     this.description = new DescriptionPanel(model, listener);
-    this.description.setSize(new Dimension(64*10, 140));
+    this.description.setSize(new Dimension(64 * 10, 140));
     this.description.setAlignmentY(Component.TOP_ALIGNMENT);
 
     setBackground(Color.black);
-    setSize(64*10, (64*rows + 140));
+    setSize(64 * 10, (64 * rows + 140));
 
     JPanel container = new JPanel();
-    container.setBackground(new Color(26, 26, 26));
-    container.setSize(64*10, (64*rows + 140));
+    container.setBackground(new Color(12, 12, 12));
+    container.setSize(64 * 10, (64 * rows + 140));
     container.setLayout(new FlowLayout());
 
     JPanel treasures = new JPanel();
-    treasures.setLayout(new GridLayout(1,4));
+    treasures.setLayout(new GridLayout(1, 4));
 
     Icon diamond = getImageIcon("diamond.png");
     treasures.add(new JButton("Diamond", diamond));
@@ -74,7 +88,7 @@ public class DungeonViewImpl extends JFrame implements DungeonView {
     Icon arrow = getImageIcon("arrow-black.png");
     treasures.add(new JButton("Arrow", arrow));
 
-    board.setSize(new Dimension(64*rows, 64*cols));
+    board.setSize(new Dimension(64 * rows, 64 * cols));
     description.setAlignmentY(Component.BOTTOM_ALIGNMENT);
     container.add(description);
     container.add(board);
@@ -85,7 +99,7 @@ public class DungeonViewImpl extends JFrame implements DungeonView {
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.shootMode = false;
     this.shootDialog = new ShootDialog(this);
-    this.shootDialog.setLocation(300,300);
+    this.shootDialog.setLocation(300, 300);
     pack();
   }
 
@@ -184,6 +198,7 @@ public class DungeonViewImpl extends JFrame implements DungeonView {
               shootMode = true;
             }
             break;
+          default: //do nothing
         }
       }
     };

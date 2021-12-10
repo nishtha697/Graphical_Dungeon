@@ -5,73 +5,81 @@ import control.gui.DungeonControllerImpl;
 import control.gui.DungeonGUIController;
 import control.gui.PreLaunchView;
 import model.dungeon.Dungeon;
-import model.dungeon.DungeonImpl;
-import model.random.RandomFactory;
-import model.random.RandomGenerator;
+import model.location.Direction;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests for {@link DungeonGUIController}.
+ */
 public class DungeonGUIControllerTest {
 
-  RandomGenerator rand;
-  private Dungeon model;
   private Appendable log;
   private DungeonGUIController controller;
-  private PreLaunchView mockPreLaunchView;
+
 
   @Before
   public void setUp() {
-    mockPreLaunchView = new MockPreLaunchView();
-    controller = new DungeonControllerImpl(mockPreLaunchView);
-    rand = new RandomFactory().getRandomGenerator(false);
-    model = new DungeonImpl(6, 4, 4, false,
-            25, "Nishtha", 1, rand);
     log = new StringBuilder();
-  }
-
-  @Test
-  public void testHandleCellClick() {
-    controller.handleCellClick(1, 1);
-    assertEquals(1, model.getPlayerLocation().getId());
-  }
-
-  @Test
-  public void testRestartGame() {
+    PreLaunchView mockPreLaunchView = new MockPreLaunchView();
+    Dungeon model = new MockModel(log);
+    MockView view = new MockView(log);
+    controller = new DungeonControllerImpl(model, view, mockPreLaunchView, 6, 4);
   }
 
   @Test
   public void testNewGame() {
+    controller.newGame();
+    assertEquals("close called", log.toString());
   }
 
   @Test
   public void testHandleKeyMove() {
+    controller.handleKeyMove(Direction.E);
+    assertEquals("movePlayer called\nrefresh called", log.toString());
   }
 
   @Test
   public void testHandlePickAll() {
+    controller.handlePickAll();
+    assertEquals("pickArrows called\ncollectAllTreasures called"
+            + "\nrefresh called", log.toString());
   }
 
   @Test
   public void testHandlePickTreasures() {
+    controller.handlePickTreasures();
+    assertEquals("collectAllTreasures called\nrefresh called", log.toString());
   }
 
   @Test
   public void testHandlePickArrows() {
+    controller.handlePickArrows();
+    assertEquals("pickArrows called\nrefresh called", log.toString());
+
   }
 
   @Test
   public void testHandlePickRubies() {
+    controller.handlePickRubies();
+    assertEquals("collectTreasure called\nrefresh called", log.toString());
   }
 
   @Test
   public void testHandlePickEmeralds() {
+    controller.handlePickEmeralds();
+    assertEquals("collectTreasure called\nrefresh called", log.toString());
   }
 
   @Test
   public void testHandlePickDiamonds() {
+    controller.handlePickDiamonds();
+    assertEquals("collectTreasure called\nrefresh called", log.toString());
   }
 
   @Test
   public void testHandleShootArrow() {
+    controller.handleShootArrow(Direction.E, 1);
+    assertEquals("shootArrow called 1 E\nrefresh called", log.toString());
   }
 }

@@ -125,6 +125,10 @@ public class DungeonImpl implements Dungeon {
     this.player = new PlayerImpl(playerName, this.start);
   }
 
+  /**
+   * This is a copy constructor.
+   * @param dungeon the dungeon
+   */
   public DungeonImpl(DungeonImpl dungeon) {
     if (dungeon == null) {
       throw new IllegalArgumentException();

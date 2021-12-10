@@ -1,12 +1,27 @@
 package control.gui;
 
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Graphics;
+
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import javax.swing.border.MatteBorder;
 
 import model.dungeon.ReadOnlyDungeon;
@@ -48,7 +63,7 @@ class DescriptionPanel extends JPanel {
             new Color(27, 28, 27)));
     this.info = new JLabel("Welcome to the world of dungeons!");
     this.info.setForeground(Color.PINK);
-    Font font = new Font("Arial", Font.BOLD,18);
+    Font font = new Font("Arial", Font.BOLD, 18);
     this.info.setFont(font);
     this.info.setBackground(Color.black);
     this.playerDescription.setBackground(Color.black);
@@ -96,39 +111,44 @@ class DescriptionPanel extends JPanel {
   }
 
   public void setMoveResult(boolean result) {
-      if (result) {
-        if (model.getPlayerLocation().getMonster() != null) {
-          if (model.getPlayerLocation().getMonster().getHealthPercentage() <= 0) {
-            info.setText("<html>Good riddance!<br>  There is a dead Otyugh in this cave.</html>");
-          } else if (model.getPlayerLocation().getMonster().getHealthPercentage() == 50) {
-            info.setText("<html>Hurry up!<br>You just escape an injured Otyugh here.</html>");
-          }
-        } else {
-          info.setText("Going good!!");
+    if (result) {
+      if (model.getPlayerLocation().getMonster() != null) {
+        if (model.getPlayerLocation().getMonster().getHealthPercentage() <= 0) {
+          info.setText("<html>Good riddance!<br>  There is a dead Otyugh in this cave.</html>");
+        } else if (model.getPlayerLocation().getMonster().getHealthPercentage() == 50) {
+          info.setText("<html>Hurry up!<br>You just escape an injured Otyugh here.</html>");
         }
-        Font font = new Font("Arial", Font.BOLD, 18);
-        info.setFont(font);
-        info.setForeground(new Color(30, 141, 18));
+      } else {
+        info.setText("<html>Going good!!<br>Keep an eye on the treasures along the way</html>");
+      }
+      Font font = new Font("Arial", Font.BOLD, 18);
+      info.setFont(font);
+      info.setForeground(new Color(30, 141, 18));
 
-      } else if (model.getPlayer().isDead()){
-        info.setText("<html>Chomp, chomp, chomp, you are eaten by an Otyugh!<br>Better luck next "
-                + "time</html>");
-        info.setForeground(Color.RED);
-      }
-      if (model.isDestinationReached() && !model.getPlayer().isDead()) {
-        info.setText("<html>Congratulations!! You won.<br>Destination Reached.</html>");
-      }
+    } else if (model.getPlayer().isDead()) {
+      info.setText("<html>Chomp, chomp, chomp, you are eaten by an Otyugh!<br>Better luck next "
+              + "time</html>");
+      info.setForeground(Color.RED);
+      JOptionPane.showMessageDialog(this,
+              "Chomp, chomp, chomp, you are eaten by an Otyugh! Better luck next\n"
+                      + "time");
+    }
+    if (model.isDestinationReached() && !model.getPlayer().isDead()) {
+      info.setText("<html>Congratulations!! You won.<br>Destination Reached.</html>");
+      JOptionPane.showMessageDialog(this,
+              "Congratulations!! You won. Destination Reached.");
+    }
   }
 
   public void setShootResult(boolean result) {
-    if(result) {
+    if (result) {
       info.setText("You hear a great howl in the distance\n");
-      Font font = new Font("Arial", Font.BOLD,18);
+      Font font = new Font("Arial", Font.BOLD, 18);
       info.setFont(font);
       info.setForeground(new Color(30, 141, 18));
     } else {
       info.setText("You shoot an arrow into the darkness\n");
-      Font font = new Font("Arial", Font.BOLD,18);
+      Font font = new Font("Arial", Font.BOLD, 18);
       info.setFont(font);
       info.setForeground(Color.RED);
     }
@@ -136,9 +156,11 @@ class DescriptionPanel extends JPanel {
 
   public void setOutOfArrows() {
     info.setText("You are out of arrows, explore to find more\n");
-    Font font = new Font("Arial", Font.BOLD,18);
+    Font font = new Font("Arial", Font.BOLD, 18);
     info.setFont(font);
     info.setForeground(new Color(44, 152, 185));
+    JOptionPane.showMessageDialog(this,
+            "You are out of arrows, explore to find more\n");
   }
 
   private ImageIcon getImageIcon(String path) {
@@ -164,7 +186,7 @@ class DescriptionPanel extends JPanel {
     public PlayerDescription() {
       setLayout(new GridLayout(2, 1));
       JLabel heading = new JLabel(model.getPlayer().getName() + "'s collected items:");
-      Font font = new Font("Arial", Font.BOLD,16);
+      Font font = new Font("Arial", Font.BOLD, 16);
       heading.setFont(font);
       heading.setForeground(Color.WHITE);
       JPanel treasures = new JPanel();
@@ -225,7 +247,7 @@ class DescriptionPanel extends JPanel {
     public LocationDescription() {
       setLayout(new GridLayout(3, 1));
       JLabel heading = new JLabel("Current location description: ");
-      Font font = new Font("Arial", Font.BOLD,16);
+      Font font = new Font("Arial", Font.BOLD, 16);
       heading.setFont(font);
       heading.setForeground(Color.WHITE);
 
@@ -256,7 +278,7 @@ class DescriptionPanel extends JPanel {
       arrows.setBackground(Color.BLACK);
 
       if (model.getPlayerLocation().getSmell() > 0) {
-        if(model.getPlayerLocation().getSmell() == 1) {
+        if (model.getPlayerLocation().getSmell() == 1) {
           smell = new JLabel("Slightly pungent smell");
           smell.setIcon(lightSmell);
         } else {
@@ -290,7 +312,7 @@ class DescriptionPanel extends JPanel {
               .stream().filter(treasure -> treasure.equals(Treasure.DIAMOND)).count()));
       arrows.setText(String.valueOf((long) model.getPlayerLocation().getArrows().size()));
       if (model.getPlayerLocation().getSmell() > 0) {
-        if(model.getPlayerLocation().getSmell() == 1) {
+        if (model.getPlayerLocation().getSmell() == 1) {
           smell.setText("Slightly pungent smell");
           smell.setIcon(lightSmell);
         } else {

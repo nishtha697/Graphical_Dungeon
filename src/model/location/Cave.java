@@ -1,9 +1,7 @@
 package model.location;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +45,10 @@ public class Cave implements LocationUpdateState {
     this.monster = null;
   }
 
+  /**
+   * Constructs cave.
+   * @param cave the cave.
+   */
   public Cave(Cave cave) {
     this.id = cave.id;
     this.coordinates = cave.coordinates;

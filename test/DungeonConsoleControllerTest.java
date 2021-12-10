@@ -3,8 +3,8 @@ import org.junit.Test;
 
 import java.io.StringReader;
 
-import control.textBased.Controller;
-import control.textBased.DungeonConsoleController;
+import control.textbased.Controller;
+import control.textbased.DungeonConsoleController;
 import model.dungeon.Dungeon;
 import model.dungeon.DungeonImpl;
 import model.random.RandomFactory;
@@ -149,8 +149,8 @@ public class DungeonConsoleControllerTest {
     Appendable gameLog = new StringBuilder();
     Controller c = new DungeonConsoleController(input, gameLog);
     c.playGame(model);
-    assertEquals("Move, Pickup, or Shoot (M-P-S)?No. of caves (1-n)?Where to?You hear a " +
-            "great howl in the distance", gameLog.toString().split("\n")[5]);
+    assertEquals("Move, Pickup, or Shoot (M-P-S)?No. of caves (1-n)?Where to?You hear a "
+            + "great howl in the distance", gameLog.toString().split("\n")[5]);
   }
 
   @Test
@@ -270,13 +270,13 @@ public class DungeonConsoleControllerTest {
     c.playGame(model);
     assertEquals("You smell something terribly pungent here.",
             gameLog.toString().split("\n")[0]);
-    assertEquals("Move, Pickup, or Shoot (M-P-S)?No. of caves (1-n)?Where to?You hear a " +
-            "great howl in the distance", gameLog.toString().split("\n")[5]);
+    assertEquals("Move, Pickup, or Shoot (M-P-S)?No. of caves (1-n)?Where to?You hear a "
+            + "great howl in the distance", gameLog.toString().split("\n")[5]);
     assertEquals("You smell something terribly pungent here.",
             gameLog.toString().split("\n")[7]);
 
-    assertEquals("Move, Pickup, or Shoot (M-P-S)?No. of caves (1-n)?Where to?You hear a " +
-            "great howl in the distance", gameLog.toString().split("\n")[12]);
+    assertEquals("Move, Pickup, or Shoot (M-P-S)?No. of caves (1-n)?Where to?You hear a "
+            + "great howl in the distance", gameLog.toString().split("\n")[12]);
     assertEquals("You are in a cave", gameLog.toString().split("\n")[14]);
     assertEquals("You smell something lightly pungent here.",
             gameLog.toString().split("\n")[35]);

@@ -887,24 +887,24 @@ public class DungeonImplTest {
   public void testShootArrowWrappingDungeon() {
     dungeon = new DungeonImpl(6, 4, 18, true,
             25, "Nishtha", 2, rand);
-    assertEquals("                                            \n" +
-            "--- [P] ------ [O] ------ [C] ------ [C] ---\n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "--- [C] ------ [C] ------ [C] ------ [C] ---\n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "--- [C] ------ [C] ------ [C] ------ [C] ---\n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [D] ------ [C]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [T] ------ [C] ------ [C] ------ [T]    \n" +
-            "                                            \n", dungeon.toString());
+    assertEquals("                                            \n"
+            + "--- [P] ------ [O] ------ [C] ------ [C] ---\n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "--- [C] ------ [C] ------ [C] ------ [C] ---\n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "--- [C] ------ [C] ------ [C] ------ [C] ---\n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [C] ------ [C] ------ [D] ------ [C]    \n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [C] ------ [C] ------ [C] ------ [C]    \n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [T] ------ [C] ------ [C] ------ [T]    \n"
+            + "                                            \n", dungeon.toString());
     assertTrue(dungeon.shootArrow(3, Direction.W));
   }
 
@@ -912,24 +912,24 @@ public class DungeonImplTest {
   public void testShootArrowThroughTunnel() {
     dungeon = new DungeonImpl(6, 4, 12, true,
             25, "Nishtha", 2, rand);
-    assertEquals("                                            \n" +
-            "    [T] ------ [P] ------ [O] ------ [T]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [T]    \n" +
-            "     |          |          |                \n" +
-            "     |          |          |                \n" +
-            "    [C] ------ [C] ------ [C] ------ [D]    \n" +
-            "     |          |          |                \n" +
-            "     |          |          |                \n" +
-            "    [C] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |                \n" +
-            "     |          |          |                \n" +
-            "    [T] ------ [C] ------ [C] ------ [C]    \n" +
-            "                                            \n", dungeon.toString());
+    assertEquals("                                            \n"
+            + "    [T] ------ [P] ------ [O] ------ [T]    \n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [C] ------ [C] ------ [C] ------ [C]    \n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [C] ------ [C] ------ [C] ------ [T]    \n"
+            + "     |          |          |                \n"
+            + "     |          |          |                \n"
+            + "    [C] ------ [C] ------ [C] ------ [D]    \n"
+            + "     |          |          |                \n"
+            + "     |          |          |                \n"
+            + "    [C] ------ [C] ------ [C] ------ [C]    \n"
+            + "     |          |          |                \n"
+            + "     |          |          |                \n"
+            + "    [T] ------ [C] ------ [C] ------ [C]    \n"
+            + "                                            \n", dungeon.toString());
     dungeon.movePlayer(Direction.S);
     dungeon.movePlayer(Direction.S);
     assertTrue(dungeon.shootArrow(3, Direction.E));
@@ -939,24 +939,24 @@ public class DungeonImplTest {
   public void testShootArrowFromTunnel() {
     dungeon = new DungeonImpl(6, 4, 13, true,
             25, "Nishtha", 2, rand);
-    assertEquals("                                            \n" +
-            "    [T] ------ [P] ------ [O] ------ [T]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [T]    \n" +
-            "     |          |          |                \n" +
-            "     |          |          |                \n" +
-            "    [D] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |                \n" +
-            "     |          |          |                \n" +
-            "    [T] ------ [C] ------ [C] ------ [C]    \n" +
-            "                                            \n", dungeon.toString());
+    assertEquals("                                            \n"
+            + "    [T] ------ [P] ------ [O] ------ [T]    \n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [C] ------ [C] ------ [C] ------ [C]    \n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [C] ------ [C] ------ [C] ------ [C]    \n"
+            + "     |          |          |          |     \n"
+            + "     |          |          |          |     \n"
+            + "    [C] ------ [C] ------ [C] ------ [T]    \n"
+            + "     |          |          |                \n"
+            + "     |          |          |                \n"
+            + "    [D] ------ [C] ------ [C] ------ [C]    \n"
+            + "     |          |          |                \n"
+            + "     |          |          |                \n"
+            + "    [T] ------ [C] ------ [C] ------ [C]    \n"
+            + "                                            \n", dungeon.toString());
     dungeon.movePlayer(Direction.S);
     dungeon.movePlayer(Direction.E);
     dungeon.movePlayer(Direction.E);
@@ -968,24 +968,24 @@ public class DungeonImplTest {
   public void testShootArrowThroughTunnel2() {
     dungeon = new DungeonImpl(6, 4, 13, true,
             25, "Nishtha", 2, rand);
-    assertEquals("                                            \n" +
-            "    [T] ------ [P] ------ [O] ------ [T]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |          |     \n" +
-            "     |          |          |          |     \n" +
-            "    [C] ------ [C] ------ [C] ------ [T]    \n" +
-            "     |          |          |                \n" +
-            "     |          |          |                \n" +
-            "    [D] ------ [C] ------ [C] ------ [C]    \n" +
-            "     |          |          |                \n" +
-            "     |          |          |                \n" +
-            "    [T] ------ [C] ------ [C] ------ [C]    \n" +
-            "                                            \n", dungeon.toString());
+    assertEquals("                                            \n"
+           + "    [T] ------ [P] ------ [O] ------ [T]    \n"
+           + "     |          |          |          |     \n"
+           + "     |          |          |          |     \n"
+           + "    [C] ------ [C] ------ [C] ------ [C]    \n"
+           + "     |          |          |          |     \n"
+           + "     |          |          |          |     \n"
+           + "    [C] ------ [C] ------ [C] ------ [C]    \n"
+           + "     |          |          |          |     \n"
+           + "     |          |          |          |     \n"
+           + "    [C] ------ [C] ------ [C] ------ [T]    \n"
+           + "     |          |          |                \n"
+           + "     |          |          |                \n"
+           + "    [D] ------ [C] ------ [C] ------ [C]    \n"
+           + "     |          |          |                \n"
+           + "     |          |          |                \n"
+           + "    [T] ------ [C] ------ [C] ------ [C]    \n"
+           + "                                            \n", dungeon.toString());
     dungeon.movePlayer(Direction.W);
     assertTrue(dungeon.shootArrow(4, Direction.S));
   }

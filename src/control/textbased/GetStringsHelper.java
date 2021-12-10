@@ -1,4 +1,4 @@
-package control.textBased;
+package control.textbased;
 
 import java.util.HashMap;
 import java.util.List;

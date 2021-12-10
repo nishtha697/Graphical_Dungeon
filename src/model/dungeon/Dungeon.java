@@ -12,7 +12,7 @@ import model.player.Player;
  * and caves that are interconnected so that player can explore the entire world by traveling from
  * cave to cave through the tunnels that connect them.
  */
-public interface Dungeon extends ReadOnlyDungeon{
+public interface Dungeon extends ReadOnlyDungeon {
 
   /**
    * Move the {@link Player} one step in the given {@link Direction}.

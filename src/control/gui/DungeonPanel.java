@@ -1,10 +1,17 @@
 package control.gui;
 
-import java.awt.*;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
+
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +19,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 
@@ -33,9 +44,10 @@ class DungeonPanel extends JPanel {
 
   /**
    * Constructs the dungeon panel.
+   *
    * @param model the read only model.
-   * @param rows the rows.
-   * @param cols the columns.
+   * @param rows  the rows.
+   * @param cols  the columns.
    */
   DungeonPanel(ReadOnlyDungeon model, int rows, int cols) {
     this.model = model;
@@ -102,7 +114,7 @@ class DungeonPanel extends JPanel {
         }
 
         if (!model.getPlayerLocation().getTreasures().isEmpty()) {
-            cell = overlay(cell, getBufferedImage("treasure.png"), 40, 10);
+          cell = overlay(cell, getBufferedImage("treasure.png"), 40, 10);
         }
 
         if (!model.getPlayerLocation().getArrows().isEmpty()) {
@@ -135,7 +147,8 @@ class DungeonPanel extends JPanel {
     this.exploredDungeon.get(row).set(col, true);
   }
 
-  private BufferedImage overlay(BufferedImage starting, BufferedImage overlay, int offsetX, int offsetY)
+  private BufferedImage overlay(BufferedImage starting, BufferedImage overlay, int offsetX,
+                                int offsetY)
           throws IOException {
     int w = Math.max(starting.getWidth(), overlay.getWidth());
     int h = Math.max(starting.getHeight(), overlay.getHeight());
@@ -144,6 +157,11 @@ class DungeonPanel extends JPanel {
     g.drawImage(starting, 0, 0, null);
     g.drawImage(overlay, offsetX, offsetY, null);
     return combined;
+  }
+
+  private BufferedImage overlay(BufferedImage starting, BufferedImage overlay, int offset)
+          throws IOException {
+    return overlay(starting, overlay, offset, offset);
   }
 
   private BufferedImage getBufferedImage(String path) {
@@ -157,12 +175,6 @@ class DungeonPanel extends JPanel {
       e.printStackTrace();
     }
     return image;
-  }
-
-
-  private BufferedImage overlay(BufferedImage starting, BufferedImage overlay, int offset)
-          throws IOException {
-    return overlay(starting, overlay, offset, offset);
   }
 
   private JLabel createJLabel(JLabel panel) {

@@ -1,4 +1,4 @@
-package control.textBased;
+package control.textbased;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.Scanner;
 import model.dungeon.Dungeon;
 import model.location.Treasure;
 
-import static control.textBased.GetStringsHelper.getString;
+import static control.textbased.GetStringsHelper.getString;
 
 /**
  * This class represents the pick command and makes the player pick treasures or arrows from the
